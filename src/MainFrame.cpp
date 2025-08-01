@@ -8,20 +8,31 @@ wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
 wxEND_EVENT_TABLE()
 
 MainFrame::MainFrame(const wxString& title)
-    : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(800, 600))
+    : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(800, 600))
 {
-    m_glCanvas = new GLCanvas(this);
+    wxPanel* mainPanel = new wxPanel(this);
 
-    m_sidePanel = new SidePanel(this);
+    wxBoxSizer* topSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* contentSizer = new wxBoxSizer(wxHORIZONTAL);
 
-    wxBoxSizer* sizer = new wxBoxSizer(wxHORIZONTAL);
-    sizer->Add(m_glCanvas, 1, wxEXPAND);
-    sizer->Add(m_sidePanel, 0, wxEXPAND | wxALL, 5);
+    m_glCanvas = new GLCanvas(mainPanel);
+    m_sidePanel = new SidePanel(mainPanel, wxID_ANY, wxDefaultPosition, wxSize(200, -1));
+    m_sidePanel->SetBackgroundColour(*wxLIGHT_GREY);
 
-    SetSizer(sizer);
-    Layout();
+    m_checkBox = new wxCheckBox(mainPanel, wxID_ANY, "Show Side Panel");
+    m_checkBox->SetValue(true);
+    m_checkBox->Bind(wxEVT_CHECKBOX, &MainFrame::OnTogglePanel, this);
 
-    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
+    topSizer->Add(m_checkBox, 0, wxALL, 5);
+    contentSizer->Add(m_glCanvas, 1, wxEXPAND);
+    contentSizer->Add(m_sidePanel, 0, wxEXPAND);
+
+    topSizer->Add(contentSizer, 1, wxEXPAND);
+    mainPanel->SetSizer(topSizer);
+
+    wxBoxSizer* frameSizer = new wxBoxSizer(wxVERTICAL);
+    frameSizer->Add(mainPanel, 1, wxEXPAND);
+    SetSizerAndFit(frameSizer);
 }
 
 void MainFrame::SetupUI()
@@ -41,4 +52,13 @@ void MainFrame::OnButtonClicked(wxCommandEvent& event)
 {
     wxLogMessage("Button clicked in MainFrame!");
     // TODO
+}
+
+void MainFrame::OnTogglePanel(wxCommandEvent& event) {
+    if (m_checkBox->IsChecked()) {
+        m_sidePanel->Show();
+    } else {
+        m_sidePanel->Hide();
+    }
+    Layout();
 }

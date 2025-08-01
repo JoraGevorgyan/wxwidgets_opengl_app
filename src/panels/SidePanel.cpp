@@ -29,6 +29,30 @@ SidePanel::SidePanel(wxWindow* parent) : wxPanel(parent) {
     button->Bind(wxEVT_BUTTON, &SidePanel::OnButtonClick, this);
 }
 
+SidePanel::SidePanel(wxWindow* parent,
+                     wxWindowID id,
+                     const wxPoint& pos,
+                     const wxSize& size,
+                     long style,
+                     const wxString& name)
+    : wxPanel(parent, id, pos, size, style, name)
+{
+    SetBackgroundColour(*wxLIGHT_GREY);
+
+    wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+
+    m_slider = new wxSlider(this, wxID_ANY, 50, 0, 100);
+    m_checkBox = new wxCheckBox(this, wxID_ANY, "Enable Feature");
+
+    sizer->Add(m_slider, 0, wxALL | wxEXPAND, 5);
+    sizer->Add(m_checkBox, 0, wxALL, 5);
+
+    SetSizer(sizer);
+
+    m_slider->Bind(wxEVT_SLIDER, &SidePanel::OnSliderChange, this);
+    m_checkBox->Bind(wxEVT_CHECKBOX, &SidePanel::OnCheckBoxToggle, this);
+}
+
 void SidePanel::OnSliderChange(wxCommandEvent& event) {
     int value = event.GetInt();
 }

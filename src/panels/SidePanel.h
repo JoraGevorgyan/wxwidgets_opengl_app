@@ -8,6 +8,12 @@
 class SidePanel : public wxPanel {
 public:
     SidePanel(wxWindow* parent);
+    SidePanel(wxWindow* parent,
+              wxWindowID id = wxID_ANY,
+              const wxPoint& pos = wxDefaultPosition,
+              const wxSize& size = wxDefaultSize,
+              long style = wxTAB_TRAVERSAL,
+              const wxString& name = wxPanelNameStr);
 
     void OnSliderChange(wxCommandEvent& event);
     void OnCheckBoxToggle(wxCommandEvent& event);

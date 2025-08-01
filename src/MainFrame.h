@@ -14,9 +14,11 @@ private:
     void SetupUI();
     void OnButtonClicked(wxCommandEvent& event);
     void OnClose(wxCloseEvent& event);
+    void OnTogglePanel(wxCommandEvent& event);
 
     GLCanvas* m_glCanvas;
     SidePanel* m_sidePanel;
+    wxCheckBox* m_checkBox;
 
     wxDECLARE_EVENT_TABLE();
 };

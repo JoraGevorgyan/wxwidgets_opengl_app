@@ -8,12 +8,18 @@ BEGIN_EVENT_TABLE(GLCanvas, wxGLCanvas)
     EVT_LEFT_DOWN(GLCanvas::OnMouseClick)
 END_EVENT_TABLE()
 
-GLCanvas::GLCanvas(wxWindow* parent)
-    : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE)
+GLCanvas::GLCanvas(wxWindow* parent, wxPanel* sidePanel)
+    : wxGLCanvas(parent, wxID_ANY, nullptr, wxDefaultPosition, wxDefaultSize, wxFULL_REPAINT_ON_RESIZE),
+      m_sidePanel(sidePanel)
 {
     SetBackgroundStyle(wxBG_STYLE_PAINT);
     m_glContext = new wxGLContext(this);
     InitializeOpenGL();
+}
+
+void GLCanvas::SetSidePanel(wxPanel* panel)
+{
+    m_sidePanel = panel;
 }
 
 void GLCanvas::InitializeOpenGL()
