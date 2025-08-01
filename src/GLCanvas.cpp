@@ -28,10 +28,20 @@ void GLCanvas::InitializeOpenGL()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
+
 void GLCanvas::OnPaint(wxPaintEvent& event)
 {
     wxPaintDC dc(this);
     SetCurrent(*m_glContext);
+
+    int width, height;
+    GetClientSize(&width, &height);
+    glViewport(0, 0, width, height);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(-1, 1, -1, 1, -1, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
     glClear(GL_COLOR_BUFFER_BIT);
 

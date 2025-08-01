@@ -8,8 +8,9 @@ wxBEGIN_EVENT_TABLE(MainFrame, wxFrame)
 wxEND_EVENT_TABLE()
 
 MainFrame::MainFrame(const wxString& title)
-    : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxSize(800, 600))
+    : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition)
 {
+    SetInitialSize(wxSize(800, 600));
     wxPanel* mainPanel = new wxPanel(this);
 
     wxBoxSizer* topSizer = new wxBoxSizer(wxVERTICAL);
@@ -32,7 +33,7 @@ MainFrame::MainFrame(const wxString& title)
 
     wxBoxSizer* frameSizer = new wxBoxSizer(wxVERTICAL);
     frameSizer->Add(mainPanel, 1, wxEXPAND);
-    SetSizerAndFit(frameSizer);
+    SetSizer(frameSizer);
 }
 
 void MainFrame::SetupUI()
