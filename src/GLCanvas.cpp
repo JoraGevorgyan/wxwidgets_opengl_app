@@ -18,8 +18,7 @@ GLCanvas::GLCanvas(wxWindow* parent)
 
 void GLCanvas::InitializeOpenGL()
 {
-    // Set up OpenGL settings
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // White background
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -30,7 +29,6 @@ void GLCanvas::OnPaint(wxPaintEvent& event)
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Render a simple 2D scene
     RenderScene();
 
     SwapBuffers();
@@ -38,8 +36,7 @@ void GLCanvas::OnPaint(wxPaintEvent& event)
 
 void GLCanvas::RenderScene()
 {
-    // Draw a rectangle as a clickable button
-    glColor3f(0.0f, 0.5f, 0.0f); // Green color
+    glColor3f(0.0f, 0.5f, 0.0f);
     glBegin(GL_QUADS);
         glVertex2f(-0.5f, -0.5f);
         glVertex2f(0.5f, -0.5f);
