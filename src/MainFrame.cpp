@@ -20,11 +20,29 @@ MainFrame::MainFrame(const wxString& title)
     m_sidePanel = new SidePanel(mainPanel, wxID_ANY, wxDefaultPosition, wxSize(200, -1));
     m_sidePanel->SetBackgroundColour(*wxLIGHT_GREY);
 
+    // m_checkBox = new wxCheckBox(mainPanel, wxID_ANY, "Show Side Panel");
+    // m_checkBox->SetValue(true);
+    // m_checkBox->Bind(wxEVT_CHECKBOX, &MainFrame::OnTogglePanel, this);
+    wxImage::AddHandler(new wxPNGHandler());
+    wxImage img("../data/cpp_icon.png", wxBITMAP_TYPE_PNG);
+    if (!img.IsOk())
+    {
+        wxLogError("Failed to load checkbox icon.");
+    }
+
+    wxBitmap bitmap(img.Scale(32, 32));
+
+    wxBoxSizer* checkSizer = new wxBoxSizer(wxHORIZONTAL);
+    wxStaticBitmap* icon = new wxStaticBitmap(mainPanel, wxID_ANY, bitmap);
+
     m_checkBox = new wxCheckBox(mainPanel, wxID_ANY, "Show Side Panel");
     m_checkBox->SetValue(true);
     m_checkBox->Bind(wxEVT_CHECKBOX, &MainFrame::OnTogglePanel, this);
 
-    topSizer->Add(m_checkBox, 0, wxALL, 5);
+    checkSizer->Add(icon, 0, wxALIGN_CENTER_VERTICAL | wxRIGHT, 5);
+    checkSizer->Add(m_checkBox, 0, wxALIGN_CENTER_VERTICAL);
+
+    topSizer->Add(checkSizer, 0, wxALL, 5);
     contentSizer->Add(m_glCanvas, 1, wxEXPAND);
     contentSizer->Add(m_sidePanel, 0, wxEXPAND);
 

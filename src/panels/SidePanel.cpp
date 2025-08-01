@@ -9,14 +9,7 @@ SidePanel::SidePanel(wxWindow* parent) : wxPanel(parent) {
 
     wxSlider* slider = new wxSlider(this, wxID_ANY, 50, 0, 100);
     wxCheckBox* checkBox = new wxCheckBox(this, wxID_ANY, "Enable Feature");
-    wxButton* button = new wxButton(this, wxID_ANY, "Click Me", wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, "button");
-    wxBitmap icon("../data/cpp_icon.png", wxBITMAP_TYPE_PNG);
-    wxImage img = icon.ConvertToImage();
-    if (img.IsOk()) {
-        img = img.Scale(24, 24, wxIMAGE_QUALITY_HIGH);
-        icon = wxBitmap(img);
-    }
-    button->SetBitmap(icon);
+    wxButton* button = new wxButton(this, wxID_ANY, "Click Me");
     
     sizer->Add(slider, 0, wxALL | wxEXPAND, 5);
     sizer->Add(checkBox, 0, wxALL | wxEXPAND, 5);
@@ -55,6 +48,7 @@ SidePanel::SidePanel(wxWindow* parent,
 
 void SidePanel::OnSliderChange(wxCommandEvent& event) {
     int value = event.GetInt();
+    wxLogMessage("Slider value changed: %d", value);    
 }
 
 void SidePanel::OnCheckBoxToggle(wxCommandEvent& event) {
